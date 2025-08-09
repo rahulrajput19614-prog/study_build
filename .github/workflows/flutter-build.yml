@@ -1,37 +1,41 @@
-name: Flutter Build
+# Workflow ka naam
+name: Flutter CI
 
+# Yeh workflow kab chalega
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ] # Jab bhi 'main' branch mein code push hoga
+  workflow_dispatch: # Manual chalaane ke liye
 
+# Kaam jo karna hai
 jobs:
   build:
-
+    # Kis computer par chalega
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      # Step 1: Aapka GitHub code download karega
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.7.8'  # अपनी Flutter version डालें
+      # Step 2: Flutter ko install karega
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # Hamesha stable version istemaal karega
+          cache: true
 
-    - name: Flutter pub get
-      run: flutter pub get
+      # Step 3: Zaroori packages install karega
+      - name: Install dependencies
+        run: flutter pub get
 
-    - name: Analyze
-      run: flutter analyze
+      # Step 4: Android APK file banayega
+      - name: Build Android APK
+        run: flutter build apk --release
 
-    - name: Run tests
-      run: flutter test
-
-    - name: Build APK
-      run: flutter build apk --release
-
-    - name: Upload APK artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: app-release.apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+      # Step 5: Banayi hui APK file ko save karega
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk # Download ki file ka naam
+          path: build/app/outputs/flutter-apk/app-release.apk
