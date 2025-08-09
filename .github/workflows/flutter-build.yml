@@ -31,6 +31,8 @@ jobs:
 
       # Step 4: Android APK file banayega
       - name: Build Android APK
+      - name: Get signing report
+        run: ./android/gradlew signingReport
         run: flutter build apk --release
 
       # Step 5: Banayi hui APK file ko save karega
