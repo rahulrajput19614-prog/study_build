@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
-  // Colors
   static const Color primaryLight = Color(0xFF2563EB);
   static const Color primaryDark = Color(0xFF3B82F6);
   static const Color secondaryLight = Color(0xFF7C3AED);
@@ -32,14 +31,13 @@ class AppTheme {
   static const Color shadowLight = Color(0x0A000000);
   static const Color shadowDark = Color(0x1A000000);
 
-  /// Light Theme
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary: primaryLight,
       onPrimary: Colors.white,
-      primaryContainer: primaryLight.withAlpha(25), // ~0.1 alpha
+      primaryContainer: primaryLight.withAlpha(25), // withValues(alpha: 0.1) replaced
       onPrimaryContainer: primaryLight,
       secondary: secondaryLight,
       onSecondary: Colors.white,
@@ -55,7 +53,7 @@ class AppTheme {
       onSurface: textPrimaryLight,
       onSurfaceVariant: textSecondaryLight,
       outline: outlineLight,
-      outlineVariant: outlineLight.withAlpha(128), // 0.5 alpha
+      outlineVariant: outlineLight.withAlpha(128),
       shadow: shadowLight,
       scrim: Colors.black.withAlpha(128),
       inverseSurface: surfaceDark,
@@ -199,7 +197,7 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
       hintStyle: GoogleFonts.inter(
-        color: textSecondaryLight.withAlpha(179), // 0.7 alpha
+        color: textSecondaryLight.withAlpha(179), // 0.7 * 255 approx 179
         fontSize: 14,
         fontWeight: FontWeight.w400,
       ),
@@ -211,13 +209,13 @@ class AppTheme {
     ),
 
     switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.resolveWith((states) {
+      thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryLight;
         }
         return Colors.white;
       }),
-      trackColor: MaterialStateProperty.resolveWith((states) {
+      trackColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryLight.withAlpha(128);
         }
@@ -226,7 +224,7 @@ class AppTheme {
     ),
 
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateProperty.resolveWith((states) {
+      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryLight;
         }
@@ -240,7 +238,7 @@ class AppTheme {
     ),
 
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.resolveWith((states) {
+      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryLight;
         }
@@ -250,7 +248,7 @@ class AppTheme {
 
     progressIndicatorTheme: ProgressIndicatorThemeData(
       color: primaryLight,
-      linearTrackColor: primaryLight.withAlpha(51),
+      linearTrackColor: primaryLight.withAlpha(51), // 0.2*255 ~ 51
       circularTrackColor: primaryLight.withAlpha(51),
     ),
 
@@ -307,10 +305,11 @@ class AppTheme {
       elevation: 4.0,
     ),
 
-    dialogTheme: DialogTheme(backgroundColor: surfaceLight),
+    dialogTheme: DialogThemeData(
+      backgroundColor: surfaceLight,
+    ),
   );
 
-  /// Dark Theme
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     colorScheme: ColorScheme(
@@ -489,13 +488,13 @@ class AppTheme {
     ),
 
     switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.resolveWith((states) {
+      thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryDark;
         }
         return textSecondaryDark;
       }),
-      trackColor: MaterialStateProperty.resolveWith((states) {
+      trackColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryDark.withAlpha(128);
         }
@@ -504,7 +503,7 @@ class AppTheme {
     ),
 
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateProperty.resolveWith((states) {
+      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryDark;
         }
@@ -518,7 +517,7 @@ class AppTheme {
     ),
 
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.resolveWith((states) {
+      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
           return primaryDark;
         }
@@ -585,39 +584,23 @@ class AppTheme {
       elevation: 4.0,
     ),
 
-    dialogTheme: DialogTheme(backgroundColor: surfaceDark),
+    dialogTheme: DialogThemeData(
+      backgroundColor: surfaceDark,
+    ),
   );
 
   static TextTheme _buildTextTheme({required bool isLight}) {
     return GoogleFonts.interTextTheme().copyWith(
-      bodyLarge: GoogleFonts.inter(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
+      headline1: TextStyle(
+          fontWeight: FontWeight.bold,
           color: isLight ? textPrimaryLight : textPrimaryDark),
-      bodyMedium: GoogleFonts.inter(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
+      bodyText1: TextStyle(
+          fontWeight: FontWeight.normal,
+          color: isLight ? textPrimaryLight : textPrimaryDark),
+      bodyText2: TextStyle(
+          fontWeight: FontWeight.normal,
           color: isLight ? textSecondaryLight : textSecondaryDark),
-      bodySmall: GoogleFonts.inter(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: isLight ? textSecondaryLight : textSecondaryDark),
-      headlineMedium: GoogleFonts.inter(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: isLight ? textPrimaryLight : textPrimaryDark),
-      headlineSmall: GoogleFonts.inter(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: isLight ? textPrimaryLight : textPrimaryDark),
-      titleMedium: GoogleFonts.inter(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: isLight ? textPrimaryLight : textPrimaryDark),
-      labelMedium: GoogleFonts.inter(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: isLight ? textSecondaryLight : textSecondaryDark),
+      // Add more styles as needed
     );
   }
 }
