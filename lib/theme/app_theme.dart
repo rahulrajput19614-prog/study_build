@@ -37,7 +37,7 @@ class AppTheme {
       brightness: Brightness.light,
       primary: primaryLight,
       onPrimary: Colors.white,
-      primaryContainer: primaryLight.withAlpha(25), // withValues(alpha: 0.1) replaced
+      primaryContainer: primaryLight.withAlpha(25),
       onPrimaryContainer: primaryLight,
       secondary: secondaryLight,
       onSecondary: Colors.white,
@@ -63,7 +63,6 @@ class AppTheme {
     scaffoldBackgroundColor: backgroundLight,
     cardColor: cardLight,
     dividerColor: outlineLight,
-
     appBarTheme: AppBarTheme(
       backgroundColor: surfaceLight,
       foregroundColor: textPrimaryLight,
@@ -79,8 +78,7 @@ class AppTheme {
       iconTheme: IconThemeData(color: textPrimaryLight, size: 24),
       actionsIconTheme: IconThemeData(color: textPrimaryLight, size: 24),
     ),
-
-    cardTheme: CardThemeData(
+    cardTheme: CardTheme(
       color: cardLight,
       elevation: 2.0,
       shadowColor: shadowLight,
@@ -90,7 +88,6 @@ class AppTheme {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     ),
-
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: surfaceLight,
       selectedItemColor: primaryLight,
@@ -106,7 +103,6 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
     ),
-
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: primaryLight,
       foregroundColor: Colors.white,
@@ -115,7 +111,6 @@ class AppTheme {
         borderRadius: BorderRadius.circular(16.0),
       ),
     ),
-
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
@@ -133,7 +128,6 @@ class AppTheme {
         ),
       ),
     ),
-
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: primaryLight,
@@ -149,7 +143,6 @@ class AppTheme {
         ),
       ),
     ),
-
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: primaryLight,
@@ -164,9 +157,7 @@ class AppTheme {
         ),
       ),
     ),
-
     textTheme: _buildTextTheme(isLight: true),
-
     inputDecorationTheme: InputDecorationTheme(
       fillColor: surfaceVariantLight,
       filled: true,
@@ -197,7 +188,7 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
       hintStyle: GoogleFonts.inter(
-        color: textSecondaryLight.withAlpha(179), // 0.7 * 255 approx 179
+        color: textSecondaryLight.withAlpha(179),
         fontSize: 14,
         fontWeight: FontWeight.w400,
       ),
@@ -207,7 +198,6 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
     ),
-
     switchTheme: SwitchThemeData(
       thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
@@ -222,7 +212,6 @@ class AppTheme {
         return outlineLight;
       }),
     ),
-
     checkboxTheme: CheckboxThemeData(
       fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
@@ -236,7 +225,6 @@ class AppTheme {
         borderRadius: BorderRadius.circular(4.0),
       ),
     ),
-
     radioTheme: RadioThemeData(
       fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
@@ -245,13 +233,11 @@ class AppTheme {
         return outlineLight;
       }),
     ),
-
     progressIndicatorTheme: ProgressIndicatorThemeData(
       color: primaryLight,
-      linearTrackColor: primaryLight.withAlpha(51), // 0.2*255 ~ 51
+      linearTrackColor: primaryLight.withAlpha(51),
       circularTrackColor: primaryLight.withAlpha(51),
     ),
-
     sliderTheme: SliderThemeData(
       activeTrackColor: primaryLight,
       thumbColor: primaryLight,
@@ -259,8 +245,7 @@ class AppTheme {
       inactiveTrackColor: outlineLight,
       trackHeight: 4.0,
     ),
-
-    tabBarTheme: TabBarThemeData(
+    tabBarTheme: TabBarTheme(
       labelColor: primaryLight,
       unselectedLabelColor: textSecondaryLight,
       indicatorColor: primaryLight,
@@ -276,7 +261,6 @@ class AppTheme {
         letterSpacing: 0.1,
       ),
     ),
-
     tooltipTheme: TooltipThemeData(
       decoration: BoxDecoration(
         color: textPrimaryLight.withAlpha(230),
@@ -289,7 +273,6 @@ class AppTheme {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     ),
-
     snackBarTheme: SnackBarThemeData(
       backgroundColor: textPrimaryLight,
       contentTextStyle: GoogleFonts.inter(
@@ -304,8 +287,7 @@ class AppTheme {
       ),
       elevation: 4.0,
     ),
-
-    dialogTheme: DialogThemeData(
+    dialogTheme: DialogTheme(
       backgroundColor: surfaceLight,
     ),
   );
@@ -342,7 +324,6 @@ class AppTheme {
     scaffoldBackgroundColor: backgroundDark,
     cardColor: cardDark,
     dividerColor: outlineDark,
-
     appBarTheme: AppBarTheme(
       backgroundColor: surfaceDark,
       foregroundColor: textPrimaryDark,
@@ -358,8 +339,7 @@ class AppTheme {
       iconTheme: IconThemeData(color: textPrimaryDark, size: 24),
       actionsIconTheme: IconThemeData(color: textPrimaryDark, size: 24),
     ),
-
-    cardTheme: CardThemeData(
+    cardTheme: CardTheme(
       color: cardDark,
       elevation: 2.0,
       shadowColor: shadowDark,
@@ -369,7 +349,6 @@ class AppTheme {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     ),
-
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: surfaceDark,
       selectedItemColor: primaryDark,
@@ -385,7 +364,6 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
     ),
-
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: primaryDark,
       foregroundColor: Colors.white,
@@ -394,7 +372,6 @@ class AppTheme {
         borderRadius: BorderRadius.circular(16.0),
       ),
     ),
-
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
@@ -412,7 +389,6 @@ class AppTheme {
         ),
       ),
     ),
-
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: primaryDark,
@@ -428,7 +404,6 @@ class AppTheme {
         ),
       ),
     ),
-
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: primaryDark,
@@ -443,9 +418,7 @@ class AppTheme {
         ),
       ),
     ),
-
     textTheme: _buildTextTheme(isLight: false),
-
     inputDecorationTheme: InputDecorationTheme(
       fillColor: surfaceVariantDark,
       filled: true,
@@ -486,7 +459,6 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
     ),
-
     switchTheme: SwitchThemeData(
       thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
@@ -501,7 +473,6 @@ class AppTheme {
         return outlineDark;
       }),
     ),
-
     checkboxTheme: CheckboxThemeData(
       fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
@@ -515,7 +486,6 @@ class AppTheme {
         borderRadius: BorderRadius.circular(4.0),
       ),
     ),
-
     radioTheme: RadioThemeData(
       fillColor: MaterialStateProperty.resolveWith<Color>((states) {
         if (states.contains(MaterialState.selected)) {
@@ -524,13 +494,11 @@ class AppTheme {
         return outlineDark;
       }),
     ),
-
     progressIndicatorTheme: ProgressIndicatorThemeData(
       color: primaryDark,
       linearTrackColor: primaryDark.withAlpha(51),
       circularTrackColor: primaryDark.withAlpha(51),
     ),
-
     sliderTheme: SliderThemeData(
       activeTrackColor: primaryDark,
       thumbColor: primaryDark,
@@ -538,8 +506,7 @@ class AppTheme {
       inactiveTrackColor: outlineDark,
       trackHeight: 4.0,
     ),
-
-    tabBarTheme: TabBarThemeData(
+    tabBarTheme: TabBarTheme(
       labelColor: primaryDark,
       unselectedLabelColor: textSecondaryDark,
       indicatorColor: primaryDark,
@@ -555,7 +522,6 @@ class AppTheme {
         letterSpacing: 0.1,
       ),
     ),
-
     tooltipTheme: TooltipThemeData(
       decoration: BoxDecoration(
         color: textPrimaryDark.withAlpha(230),
@@ -568,7 +534,6 @@ class AppTheme {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     ),
-
     snackBarTheme: SnackBarThemeData(
       backgroundColor: textPrimaryDark,
       contentTextStyle: GoogleFonts.inter(
@@ -583,24 +548,35 @@ class AppTheme {
       ),
       elevation: 4.0,
     ),
-
-    dialogTheme: DialogThemeData(
+    dialogTheme: DialogTheme(
       backgroundColor: surfaceDark,
     ),
   );
 
+  // THIS IS THE CORRECTED FUNCTION
   static TextTheme _buildTextTheme({required bool isLight}) {
+    final textColor = isLight ? textPrimaryLight : textPrimaryDark;
+    final secondaryTextColor = isLight ? textSecondaryLight : textSecondaryDark;
+    
     return GoogleFonts.interTextTheme().copyWith(
-      headline1: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: isLight ? textPrimaryLight : textPrimaryDark),
-      bodyText1: TextStyle(
-          fontWeight: FontWeight.normal,
-          color: isLight ? textPrimaryLight : textPrimaryDark),
-      bodyText2: TextStyle(
-          fontWeight: FontWeight.normal,
-          color: isLight ? textSecondaryLight : textSecondaryDark),
-      // Add more styles as needed
+      // New names for headline styles
+      displayLarge: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline1
+      displayMedium: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline2
+      displaySmall: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline3
+      headlineMedium: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline4
+      headlineSmall: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline5
+      titleLarge: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline6
+      
+      // New names for body text styles
+      bodyLarge: TextStyle(fontWeight: FontWeight.normal, color: textColor), // Replaces bodyText1
+      bodyMedium: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces bodyText2
+      
+      // Add more styles as needed with their new names
+      titleMedium: TextStyle(fontWeight: FontWeight.normal, color: textColor), // Replaces subtitle1
+      titleSmall: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces subtitle2
+      bodySmall: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces caption
+      labelLarge: TextStyle(fontWeight: FontWeight.w500, color: textColor), // Replaces button
+      labelSmall: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces overline
     );
   }
 }
