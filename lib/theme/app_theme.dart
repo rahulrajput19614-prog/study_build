@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
+  // --- COLOR CONSTANTS ---
   static const Color primaryLight = Color(0xFF2563EB);
   static const Color primaryDark = Color(0xFF3B82F6);
   static const Color secondaryLight = Color(0xFF7C3AED);
@@ -31,6 +32,7 @@ class AppTheme {
   static const Color shadowLight = Color(0x0A000000);
   static const Color shadowDark = Color(0x1A000000);
 
+  // --- LIGHT THEME ---
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     colorScheme: ColorScheme(
@@ -59,6 +61,10 @@ class AppTheme {
       inverseSurface: surfaceDark,
       onInverseSurface: textPrimaryDark,
       inversePrimary: primaryDark,
+      background: backgroundLight, // Added for completeness
+      onBackground: textPrimaryLight, // Added for completeness
+      errorContainer: errorLight.withAlpha(25), // Added for completeness
+      onErrorContainer: errorLight, // Added for completeness
     ),
     scaffoldBackgroundColor: backgroundLight,
     cardColor: cardLight,
@@ -78,7 +84,8 @@ class AppTheme {
       iconTheme: IconThemeData(color: textPrimaryLight, size: 24),
       actionsIconTheme: IconThemeData(color: textPrimaryLight, size: 24),
     ),
-    cardTheme: CardTheme(
+    // CORRECTED: Used CardThemeData
+    cardTheme: CardThemeData(
       color: cardLight,
       elevation: 2.0,
       shadowColor: shadowLight,
@@ -245,7 +252,8 @@ class AppTheme {
       inactiveTrackColor: outlineLight,
       trackHeight: 4.0,
     ),
-    tabBarTheme: TabBarTheme(
+    // CORRECTED: Used TabBarThemeData
+    tabBarTheme: TabBarThemeData(
       labelColor: primaryLight,
       unselectedLabelColor: textSecondaryLight,
       indicatorColor: primaryLight,
@@ -287,11 +295,18 @@ class AppTheme {
       ),
       elevation: 4.0,
     ),
-    dialogTheme: DialogTheme(
+    // CORRECTED: Used DialogThemeData
+    dialogTheme: DialogThemeData(
       backgroundColor: surfaceLight,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      titleTextStyle: GoogleFonts.inter(
+          color: textPrimaryLight, fontSize: 20, fontWeight: FontWeight.w600),
+      contentTextStyle: GoogleFonts.inter(
+          color: textSecondaryLight, fontSize: 16, fontWeight: FontWeight.w400),
     ),
   );
 
+  // --- DARK THEME ---
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     colorScheme: ColorScheme(
@@ -320,6 +335,10 @@ class AppTheme {
       inverseSurface: surfaceLight,
       onInverseSurface: textPrimaryLight,
       inversePrimary: primaryLight,
+      background: backgroundDark, // Added for completeness
+      onBackground: textPrimaryDark, // Added for completeness
+      errorContainer: errorDark.withAlpha(51), // Added for completeness
+      onErrorContainer: errorDark, // Added for completeness
     ),
     scaffoldBackgroundColor: backgroundDark,
     cardColor: cardDark,
@@ -339,7 +358,8 @@ class AppTheme {
       iconTheme: IconThemeData(color: textPrimaryDark, size: 24),
       actionsIconTheme: IconThemeData(color: textPrimaryDark, size: 24),
     ),
-    cardTheme: CardTheme(
+    // CORRECTED: Used CardThemeData
+    cardTheme: CardThemeData(
       color: cardDark,
       elevation: 2.0,
       shadowColor: shadowDark,
@@ -506,7 +526,8 @@ class AppTheme {
       inactiveTrackColor: outlineDark,
       trackHeight: 4.0,
     ),
-    tabBarTheme: TabBarTheme(
+    // CORRECTED: Used TabBarThemeData
+    tabBarTheme: TabBarThemeData(
       labelColor: primaryDark,
       unselectedLabelColor: textSecondaryDark,
       indicatorColor: primaryDark,
@@ -548,35 +569,41 @@ class AppTheme {
       ),
       elevation: 4.0,
     ),
-    dialogTheme: DialogTheme(
+    // CORRECTED: Used DialogThemeData
+    dialogTheme: DialogThemeData(
       backgroundColor: surfaceDark,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      titleTextStyle: GoogleFonts.inter(
+          color: textPrimaryDark, fontSize: 20, fontWeight: FontWeight.w600),
+      contentTextStyle: GoogleFonts.inter(
+          color: textSecondaryDark, fontSize: 16, fontWeight: FontWeight.w400),
     ),
   );
 
-  // THIS IS THE CORRECTED FUNCTION
+  // CORRECTED and COMPLETED function with modern TextTheme properties
   static TextTheme _buildTextTheme({required bool isLight}) {
     final textColor = isLight ? textPrimaryLight : textPrimaryDark;
     final secondaryTextColor = isLight ? textSecondaryLight : textSecondaryDark;
-    
-    return GoogleFonts.interTextTheme().copyWith(
-      // New names for headline styles
-      displayLarge: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline1
-      displayMedium: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline2
-      displaySmall: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline3
-      headlineMedium: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline4
-      headlineSmall: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline5
-      titleLarge: TextStyle(fontWeight: FontWeight.bold, color: textColor), // Replaces headline6
-      
-      // New names for body text styles
-      bodyLarge: TextStyle(fontWeight: FontWeight.normal, color: textColor), // Replaces bodyText1
-      bodyMedium: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces bodyText2
-      
-      // Add more styles as needed with their new names
-      titleMedium: TextStyle(fontWeight: FontWeight.normal, color: textColor), // Replaces subtitle1
-      titleSmall: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces subtitle2
-      bodySmall: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces caption
-      labelLarge: TextStyle(fontWeight: FontWeight.w500, color: textColor), // Replaces button
-      labelSmall: TextStyle(fontWeight: FontWeight.normal, color: secondaryTextColor), // Replaces overline
+
+    return GoogleFonts.interTextTheme(
+      TextTheme(
+        displayLarge: TextStyle(fontSize: 57, fontWeight: FontWeight.w400, color: textColor),
+        displayMedium: TextStyle(fontSize: 45, fontWeight: FontWeight.w400, color: textColor),
+        displaySmall: TextStyle(fontSize: 36, fontWeight: FontWeight.w400, color: textColor),
+        headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.w400, color: textColor),
+        headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w400, color: textColor),
+        headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.w400, color: textColor),
+        titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: textColor),
+        titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.15, color: textColor),
+        titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1, color: textColor),
+        bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5, color: textColor),
+        bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25, color: textColor),
+        bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4, color: textColor),
+        labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25, color: textColor),
+        labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.5, color: secondaryTextColor),
+        labelSmall: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5, color: secondaryTextColor),
+      ),
     );
   }
 }
+
