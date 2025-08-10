@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+
+#
+# Copyright 2015 the original author or authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# You may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS=""
+
+APP_NAME="Gradle"
+APP_BASE_NAME=`basename "$0"`
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD="maximum"
+
+warn () {
+    echo "$*"
+}
+
+die () {
+    echo
+    echo "ERROR: $*"
+    echo
+    exit 1
+}
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false
+msys=false
+darwin=false
+nonstop=false
+case "`uname`" in
+  CYGWIN* )
+    cygwin=true
+    ;;
+  Darwin* )
+    darwin=true
+    ;;
+  MINGW* )
+    msys=true
+    ;;
+  NONSTOP* )
+    nonstop=true
+    ;;
+esac
+
+# Attempt to set APP_HOME
+# Resolve links: $0 may be a link
+PRG="$0"
+# Need this for relative symlinks.
+while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=`dirname "$PRG"`"/$link"
+    fi
+done
+
+APP_HOME=`dirname "$PRG"`
+
+# For Cygwin, ensure paths are in UNIX format before anything is touched
+if $cygwin ; then
+    [ -n "$APP_HOME" ] &&
+        APP_HOME=`cygpath --unix "$APP_HOME"`
+    [ -n "$JAVA_HOME" ] &&
+        JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+    [ -n "$CLASSPATH" ] &&
+        CLASSPATH=`cygpath --path --unix "$CLASSPATH"`
+fi
+
+# Attempt to find JAVA_HOME if not already set.
+if [ -z "$JAVA_HOME" ] ; then
+    if $darwin ; then
+        [ -x '/usr/libexec/java_home' ] && export JAVA_HOME=`/usr/libexec/java_home`
+        [ -z "$JAVA_HOME" ] && [ -d "/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home" ] && export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home"
+    else
+        java_exe_path=$(which java 2>/dev/null)
+        if [ "x$java_exe_path" != "x" ] ; then
+            export JAVA_HOME=$(dirname $(dirname $(readlink -f $java_exe_path)))
+        fi
+    fi
+fi
+
+# Check for a system-wide gradle.properties file
+if [ -f "/etc/gradle/gradle.properties" ] ; then
+    GRADLE_USER_HOME_PROPERTIES="/etc/gradle/gradle.properties"
+fi
+
+# Check for a user-specific gradle.properties file
+if [ -f "$HOME/.gradle/gradle.properties" ] ; then
+    GRADLE_USER_HOME_PROPERTIES="$HOME/.gradle/gradle.properties"
+fi
+
+if [ -n "$GRADLE_USER_HOME_PROPERTIES" ] ; then
+    echo "Reading user-defined properties from: $GRADLE_USER_HOME_PROPERTIES"
+    . "$GRADLE_USER_HOME_PROPERTIES"
+fi
+
+# Add user-defined properties
+if [ -n "$GRADLE_OPTS" ]; then
+    echo "Appending user-defined JAVA_OPTS to GRADLE_OPTS: $GRADLE_OPTS"
+    JAVA_OPTS="$JAVA_OPTS $GRADLE_OPTS"
+fi
+
+# Add default properties
+if [ -n "$DEFAULT_JVM_OPTS" ]; then
+    echo "Appending default JAVA_OPTS to GRADLE_OPTS: $DEFAULT_JVM_OPTS"
+    JAVA_OPTS="$JAVA_OPTS $DEFAULT_JVM_OPTS"
+fi
+
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin ; then
+    [ -n "$APP_HOME" ] &&
+        APP_HOME=`cygpath --path --windows "$APP_HOME"`
+    [ -n "$JAVA_HOME" ] &&
+        JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
+    [ -n "$CLASSPATH" ] &&
+        CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+fi
+
+# Split up the JVM options string into an array, following the shell quoting and substitution rules
+function split_jvm_opts() {
+    JVM_OPTS=()
+    while [ $# -gt 0 ]
+    do
+        JVM_OPTS=(${JVM_OPTS[@]} "$1")
+        shift
+    done
+}
+eval split_jvm_opts $JAVA_OPTS
+
+# Set the GRADLE_HOME
+if [ -z "$GRADLE_HOME" ] ; then
+    GRADLE_HOME="$APP_HOME"
+fi
+
+# Find the gradle-launcher JAR
+if [ -f "$GRADLE_HOME/lib/plugins/gradle-launcher.jar" ]; then
+    GRADLE_LAUNCHER_JAR="$GRADLE_HOME/lib/plugins/gradle-launcher.jar"
+elif [ -f "$GRADLE_HOME/lib/gradle-launcher.jar" ]; then
+    GRADLE_LAUNCHER_JAR="$GRADLE_HOME/lib/gradle-launcher.jar"
+fi
+
+if [ -z "$GRADLE_LAUNCHER_JAR" ] || [ ! -f "$GRADLE_LAUNCHER_JAR" ] ; then
+    # Fallback to searching the classpath
+    for jar in `echo $CLASSPATH | tr : ' '` ; do
+        if `echo $jar | grep "gradle-launcher" > /dev/null` ; then
+            GRADLE_LAUNCHER_JAR=$jar
+        fi
+    done
+fi
+
+if [ -z "$GRADLE_LAUNCHER_JAR" ] ; then
+    die "Could not find gradle-launcher.jar. Please specify GRADLE_HOME or CLASSPATH."
+fi
+
+# Execute Gradle
+if [ -z "$JAVA_HOME" ] ; then
+    JAVACMD='java'
+else
+    JAVACMD="$JAVA_HOME/bin/java"
+fi
+
+exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$GRADLE_LAUNCHER_JAR" org.gradle.launcher.GradleMain "$@"
