@@ -31,8 +31,9 @@ jobs:
 
       # Step 4: SHA-1 Key nikalega (CORRECTED STEP)
       - name: Get signing report
-        working-directory: ./android  # Pehle android folder ke andar jaayega
-        run: ./gradlew signingReport  # Phir command chalaayega
+        run: |
+          cd android
+          ./gradlew signingReport
 
       # Step 5: Android APK file banayega
       - name: Build Android APK
