@@ -1,4 +1,4 @@
-name: Flutter Android Build
+name: Flutter Build
 
 on:
   push:
@@ -14,20 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Flutter
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0' # Apne Flutter version ke hisaab se change karo
+          flutter-version: '3.13.0' # Apne version ke hisaab se change karo
 
       - name: Install dependencies
         run: flutter pub get
-
-      - name: Generate Gradle wrapper (agar missing ho)
-        run: |
-          sudo apt-get install gradle -y
-          cd android
-          gradle wrapper
-          cd ..
 
       - name: Build APK
         run: flutter build apk --release
@@ -35,5 +28,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
-          name: app-release
+          name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
