@@ -29,11 +29,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 4: Android APK file banayega
-      - name: Build Android APK
-      - name: Get signing report
-        run: ./android/gradlew signingReport
-        run: flutter build apk --release
+      # Step 4: Android APK file banayega AUR signing report nikalega
+      - name: Build Android APK and Get Signing Report
+        run: |
+          ./android/gradlew signingReport
+          flutter build apk --release
 
       # Step 5: Banayi hui APK file ko save karega
       - name: Upload APK artifact
