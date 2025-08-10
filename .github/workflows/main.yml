@@ -22,19 +22,17 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable' # Hamesha stable version istemaal karega
+          channel: 'stable'
           cache: true
 
       # Step 3: Zaroori packages install karega
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 4: SHA-1 Key nikalega
+      # Step 4: SHA-1 Key nikalega (CORRECTED STEP)
       - name: Get signing report
-        run: |
-          cd android
-          ./gradlew signingReport
-          cd ..
+        working-directory: ./android  # Pehle android folder ke andar jaayega
+        run: ./gradlew signingReport  # Phir command chalaayega
 
       # Step 5: Android APK file banayega
       - name: Build Android APK
@@ -44,5 +42,5 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-apk # Download ki file ka naam
+          name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
