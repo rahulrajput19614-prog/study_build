@@ -1,0 +1,48 @@
+# Workflow ka naam
+name: Flutter CI Build
+
+# Yeh workflow kab chalega
+on:
+  push:
+    branches: [ "main" ] # Jab bhi 'main' branch mein code push hoga
+  workflow_dispatch: # Manual chalaane ke liye
+
+# Kaam jo karna hai
+jobs:
+  build-android:
+    # Kis computer par chalega
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Aapka GitHub code download karega
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Flutter ko install karega
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # Hamesha stable version istemaal karega
+          cache: true
+
+      # Step 3: Zaroori packages install karega
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Step 4: SHA-1 Key nikalega
+      - name: Get signing report
+        run: |
+          cd android
+          ./gradlew signingReport
+          cd ..
+
+      # Step 5: Android APK file banayega
+      - name: Build Android APK
+        run: flutter build apk --release
+
+      # Step 6: Banayi hui APK file ko save karega
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk # Download ki file ka naam
+          path: build/app/outputs/flutter-apk/app-release.apk
