@@ -29,19 +29,18 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 4: Gradlew ko permission dega (PAKA ILAJ)
-      - name: Grant executable permission to gradlew
-        run: chmod +x android/gradlew
-
-      # Step 5: SHA-1 Key nikalega
-      - name: Get signing report
-        run: ./android/gradlew signingReport
+      # Step 4: SHA-1 Key nikalega (PAKA ILAJ)
+      - name: Grant Permission and Get Signing Report
+        run: |
+          cd android
+          chmod +x ./gradlew
+          ./gradlew signingReport
         
-      # Step 6: Android APK file banayega
+      # Step 5: Android APK file banayega
       - name: Build Android APK
         run: flutter build apk --release
 
-      # Step 7: Banayi hui APK file ko save karega
+      # Step 6: Banayi hui APK file ko save karega
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
