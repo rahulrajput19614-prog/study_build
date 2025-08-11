@@ -1,18 +1,37 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.my_flutter_app">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="my_flutter_app"
+        android:label="study_build"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
+        <!-- यह Activity वाला हिस्सा नया और सही है -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            
+            <!-- यह meta-data Flutter v2 embedding के लिए ज़रूरी है -->
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        
+        <!-- Flutter v2 embedding के लिए ज़रूरी -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+            
     </application>
-
+    <!-- इंटरनेट की परमिशन -->
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
